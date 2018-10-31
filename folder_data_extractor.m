@@ -2,10 +2,11 @@
 % Clear the workspace.
 clc
 clear 
-tic
 
 path = uigetdir; % Let the user select the folder that they want to convert.
 oldFolder = cd (path); % Change directory and remember the old one to go back to.
+
+tic
 
 zz = dir(path);% This finds all of the files in this folder.
 
