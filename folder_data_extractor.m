@@ -2,6 +2,7 @@
 % Clear the workspace.
 clc
 clear 
+tic
 
 path = uigetdir; % Let the user select the folder that they want to convert.
 oldFolder = cd (path); % Change directory and remember the old one to go back to.
@@ -19,6 +20,8 @@ outpath = [path, '\', folName]; % Make sure that the files are put into the new 
 
 for p = 3:length(zz) % 3 as first two are always directories.
 
+    
+    
     if zz(p).isdir == 1   % Means that folders and directories are not looked at.
     
     elseif contains(zz(p).name,'.png')==1 % Does not look at the png images.
@@ -33,7 +36,10 @@ filename = [path,'\',zz(p).name];
 fid = fopen(filename,'r');
 line=fgetl(fid); % fgetl(fileID) returns the next line of the specified file, removing the newline characters.
 
-
+    clear data
+    clear obj
+    clear header
+    
 % This is for skiping lines until we reach the column names.
 pattern = 'Time_since_start'; % Tell it what to look for.
 while ~contains(line,pattern)==1
@@ -159,3 +165,4 @@ tiled2 = '%f';
     end
 end
 cd (oldFolder) % Change back to the old directory. As not to confuse everyone. 
+toc
