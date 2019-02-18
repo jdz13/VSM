@@ -1,6 +1,6 @@
 
 % Clear the workspace.
-clc
+%clc
 clear 
 
 path = uigetdir; % Let the user select the folder that they want to convert.
@@ -161,9 +161,10 @@ tiled2 = '%f';
     end
     fclose('all'); % Close all open files.
     
-    
+    zz(p).data = data.values;
    
     end
+    
 end
 cd (oldFolder) % Change back to the old directory. As not to confuse everyone. 
 toc
