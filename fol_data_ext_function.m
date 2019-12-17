@@ -3,10 +3,6 @@ function [zz] = fol_data_ext_function()
 %   Detailed explanation goes here
 
 
-% Clear the workspace.
-clc
-clear 
-
 path = uigetdir; % Let the user select the folder that they want to convert.
 oldFolder = cd (path); % Change directory and remember the old one to go back to.
 
