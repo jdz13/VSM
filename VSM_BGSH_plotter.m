@@ -1,4 +1,4 @@
-function [] = VSM_BGSH_plotter (figno,datain) 
+function [samplefol, BGfol] = VSM_BGSH_plotter (figno,datain) 
 
     if datain == 1
         disp 'please find the sample data folder'
@@ -10,16 +10,16 @@ function [] = VSM_BGSH_plotter (figno,datain)
     else
         disp 'please choose either 1 or 0 for datain field'
     end
-
+%%
     raw = 10;
     field = 9;
     actual = 11;
 
-    deg0 = 5;
-    deg0SH = 9;
+    deg0 = 3;
+    deg0SH = 1;
 
-    deg90 = 13;
-    deg90SH = 7;
+    deg90 = 3;
+    deg90SH = 1;
 
     datafields = find(arrayfun(@(x) ~isempty(x.data), samplefol));
     shfields = find(arrayfun(@(x) ~isempty(x.data), BGfol));
@@ -29,26 +29,26 @@ function [] = VSM_BGSH_plotter (figno,datain)
     rwac = [raw, actual]; 
 
     figure(figno); clf;
-    
+    %%
     subplot(2,2,1)
-    plot(PyrexSH(deg0SH).data(:,field), SHSP8309(deg0).data(:,rwac(ras)) - PyrexSH(deg0SH).data(:,rwac(ras)) )
+    plot(BGfol(shfields(deg0SH)).data(:,field), samplefol(datafields(deg0)).data(:,rwac(ras)))
     xlabel 'Field [Oe]'
     ylabel ' Moment [\muemu]'
-    title 'Using raw data (subtraction)'
+    title (['Using raw data - ', samplefol(shfields(1)).name(1:6)])
     subplot(2,2,2)
-    vsmplot(PyrexSH(deg0SH).data(:,field), SHSP8309(deg0).data(:,rwac(ras)) - PyrexSH(deg0SH).data(:,rwac(ras)))
+    vsmplot(BGfol(shfields(deg0SH)).data(:,field), samplefol(datafields(deg0)).data(:,rwac(ras)))
     xlabel 'Field [Oe]'
     ylabel ' Moment [\muemu]'
-    title 'Using VSMplot to remove slope'
+    title (['Using VSMplot to remove slope   -   S (', num2str(deg0), '), SH (', num2str(deg0SH),')'])
     subplot(2,2,3)
-    plot(PyrexSH90(deg90SH).data(:,field),SHSP8309(deg90).data(:,rwac(ras))-PyrexSH90(deg90SH).data(:,rwac(ras)))
+    plot(BGfol(shfields(deg90SH)).data(:,field),samplefol(datafields(deg90)).data(:,rwac(ras))-BGfol(shfields(deg90SH)).data(:,rwac(ras)))
     xlabel 'Field [Oe]'
     ylabel ' Moment [\muemu]'
-    title 'Using raw data (subtraction) - (HA)'
+    title 'Using raw data (subtracting for SH)'
     subplot(2,2,4)
-    vsmplot(PyrexSH90(deg90SH).data(:,field),SHSP8309(deg90).data(:,rwac(ras))-PyrexSH90(deg90SH).data(:,rwac(ras)))
+    vsmplot(BGfol(shfields(deg90SH)).data(:,field),samplefol(datafields(deg90)).data(:,rwac(ras))-BGfol(shfields(deg90SH)).data(:,rwac(ras)))
     xlabel 'Field [Oe]'
     ylabel ' Moment [\muemu]'
-    title 'Using VSMplot to remove slope - (HA)'
+    title 'Using VSMplot to remove slope (subtracting for SH)'
        
 end 

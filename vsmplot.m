@@ -1,6 +1,6 @@
 function [] = vsmplot(inputx,inputy)
 
-    av = 20; st = 2;
+    av = 2; st = 2;
     gradient = zeros(1,av); intercept = zeros(1,av);
 
     for n = st:st+av
